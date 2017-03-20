@@ -19,11 +19,12 @@ package com.bilibili.boxing.impl;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bilibili.boxing.demo.R;
+import com.bilibili.boxing.loader.BaseBoxingMediaLoader;
 import com.bilibili.boxing.loader.IBoxingCallback;
-import com.bilibili.boxing.loader.IBoxingMediaLoader;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -34,21 +35,21 @@ import com.bumptech.glide.request.target.Target;
  *
  * @author ChenSL
  */
-public class BoxingGlideLoader implements IBoxingMediaLoader {
+public class BoxingGlideLoader extends BaseBoxingMediaLoader {
 
     @Override
-    public void displayThumbnail(@NonNull ImageView img, @NonNull String absPath, int width, int height) {
+    public void displayThumbnail(@NonNull View img, @NonNull String absPath, int width, int height) {
         String path = "file://" + absPath;
         try {
             // https://github.com/bumptech/glide/issues/1531
-            Glide.with(img.getContext()).load(path).placeholder(R.drawable.ic_default_image).crossFade().centerCrop().into(img);
+            Glide.with(img.getContext()).load(path).placeholder(R.drawable.ic_default_image).crossFade().centerCrop().into((ImageView) img);
         } catch(IllegalArgumentException ignore) {
         }
 
     }
 
     @Override
-    public void displayRaw(@NonNull final ImageView img, @NonNull String absPath, final IBoxingCallback callback) {
+    public void displayRaw(@NonNull final View img, @NonNull String absPath, int failImageResId, final IBoxingCallback callback) {
         String path = "file://" + absPath;
         Glide.with(img.getContext())
                 .load(path)
@@ -66,14 +67,15 @@ public class BoxingGlideLoader implements IBoxingMediaLoader {
                     @Override
                     public boolean onResourceReady(Bitmap resource, String model, Target<Bitmap> target, boolean isFromMemoryCache, boolean isFirstResource) {
                         if (resource != null && callback != null) {
-                            img.setImageBitmap(resource);
+                            ((ImageView) img).setImageBitmap(resource);
                             callback.onSuccess();
                             return true;
                         }
                         return false;
                     }
                 })
-                .into(img);
+                .error(failImageResId)
+                .into((ImageView) img);
 
     }
 

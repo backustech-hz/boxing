@@ -48,7 +48,7 @@ public class MediaItemLayout extends FrameLayout {
     private ImageView mCheckImg;
     private View mVideoLayout;
     private View mFontLayout;
-    private ImageView mCoverImg;
+    private View mCoverImg;
     private ScreenType mScreenType;
 
     private enum ScreenType {
@@ -75,7 +75,7 @@ public class MediaItemLayout extends FrameLayout {
     public MediaItemLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         View view = LayoutInflater.from(context).inflate(R.layout.layout_media_item, this, true);
-        mCoverImg = (ImageView) view.findViewById(R.id.media_item);
+        mCoverImg = view.findViewById(R.id.media_item);
         mCheckImg = (ImageView) view.findViewById(R.id.media_item_check);
         mVideoLayout = view.findViewById(R.id.video_layout);
         mFontLayout = view.findViewById(R.id.media_font_layout);
@@ -116,10 +116,10 @@ public class MediaItemLayout extends FrameLayout {
         return result;
     }
 
-    @SuppressWarnings("deprecation")
-    public void setDrawable(Drawable drawable) {
+    public void setDrawable(int drawableResId) {
         if (mCoverImg != null) {
-            mCoverImg.setImageDrawable(drawable);
+//            mCoverImg.setImageDrawable(drawable);
+            BoxingMediaLoader.getInstance().setPlaceHolder(mCheckImg, drawableResId);
         }
     }
 

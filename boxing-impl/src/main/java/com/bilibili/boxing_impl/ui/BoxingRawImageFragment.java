@@ -18,7 +18,6 @@
 package com.bilibili.boxing_impl.ui;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,9 +35,6 @@ import com.bilibili.boxing_impl.R;
 
 import java.lang.ref.WeakReference;
 
-import uk.co.senab.photoview.PhotoView;
-import uk.co.senab.photoview.PhotoViewAttacher;
-
 /**
  * show raw image with the control of finger gesture.
  *
@@ -47,10 +43,10 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 public class BoxingRawImageFragment extends Fragment {
     private static final String BUNDLE_IMAGE = "com.bilibili.boxing_impl.ui.BoxingRawImageFragment.image";
     private static final int MAX_SCALE = 15;
-    private PhotoView mImageView;
+    private View mImageView;
     private ProgressBar mProgress;
     private ImageMedia mMedia;
-    private PhotoViewAttacher mAttacher;
+//    private PhotoViewAttacher mAttacher;
 
     public static BoxingRawImageFragment newInstance(@NonNull ImageMedia image) {
         BoxingRawImageFragment fragment = new BoxingRawImageFragment();
@@ -76,11 +72,11 @@ public class BoxingRawImageFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mProgress = (ProgressBar) view.findViewById(R.id.loading);
-        mImageView = (PhotoView) view.findViewById(R.id.photo_view);
-        mAttacher = new PhotoViewAttacher(mImageView);
-        mAttacher.setRotatable(true);
-        mAttacher.setToRightAngle(true);
-        ((AbsBoxingViewActivity) getActivity()).loadRawImage(mImageView, mMedia.getPath(), new BoxingCallback(this));
+        mImageView = view.findViewById(R.id.photo_view);
+//        mAttacher = new PhotoViewAttacher(mImageView);
+//        mAttacher.setRotatable(true);
+//        mAttacher.setToRightAngle(true);
+        ((AbsBoxingViewActivity) getActivity()).loadRawImage(mImageView, mMedia.getPath(), R.drawable.ic_broken_image, new BoxingCallback(this));
     }
 
     private void dismissProgressDialog() {
@@ -104,11 +100,12 @@ public class BoxingRawImageFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (mAttacher != null) {
-            mAttacher.cleanup();
-            mAttacher = null;
-            mImageView = null;
-        }
+//        if (mAttacher != null) {
+//            mAttacher.cleanup();
+//            mAttacher = null;
+//            mImageView = null;
+//        }
+        mImageView = null;
     }
 
     private static class BoxingCallback implements IBoxingCallback {
@@ -124,18 +121,18 @@ public class BoxingRawImageFragment extends Fragment {
                 return;
             }
             mWr.get().dismissProgressDialog();
-            Drawable drawable = mWr.get().mImageView.getDrawable();
-            PhotoViewAttacher attacher = mWr.get().mAttacher;
-            if (attacher != null) {
-                if (drawable.getIntrinsicHeight() > (drawable.getIntrinsicWidth() << 2)) {
-                    // handle the super height image.
-                    int scale = drawable.getIntrinsicHeight() / drawable.getIntrinsicWidth();
-                    scale = Math.min(MAX_SCALE, scale);
-                    attacher.setMaximumScale(scale);
-                    attacher.setScale(scale, true);
-                }
-                attacher.update();
-            }
+//            Drawable drawable = mWr.get().mImageView.getDrawable();
+//            PhotoViewAttacher attacher = mWr.get().mAttacher;
+//            if (attacher != null) {
+//                if (drawable.getIntrinsicHeight() > (drawable.getIntrinsicWidth() << 2)) {
+//                    // handle the super height image.
+//                    int scale = drawable.getIntrinsicHeight() / drawable.getIntrinsicWidth();
+//                    scale = Math.min(MAX_SCALE, scale);
+//                    attacher.setMaximumScale(scale);
+//                    attacher.setScale(scale, true);
+//                }
+//                attacher.update();
+//            }
             BoxingViewActivity activity = mWr.get().getThisActivity();
             if (activity != null && activity.mGallery != null) {
                 activity.mGallery.setVisibility(View.VISIBLE);
@@ -149,10 +146,10 @@ public class BoxingRawImageFragment extends Fragment {
             }
             BoxingLog.d(t != null ? t.getMessage() : "load raw image error.");
             mWr.get().dismissProgressDialog();
-            mWr.get().mImageView.setImageResource(R.drawable.ic_broken_image);
-            if (mWr.get().mAttacher != null) {
-                mWr.get().mAttacher.update();
-            }
+//            mWr.get().mImageView.setImageResource(R.drawable.ic_broken_image);
+//            if (mWr.get().mAttacher != null) {
+//                mWr.get().mAttacher.update();
+//            }
         }
     }
 }

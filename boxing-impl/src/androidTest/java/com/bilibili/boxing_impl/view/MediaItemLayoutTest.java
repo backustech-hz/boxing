@@ -47,12 +47,17 @@ public class MediaItemLayoutTest {
     public void setup() {
         BoxingMediaLoader.getInstance().init(new IBoxingMediaLoader() {
             @Override
-            public void displayThumbnail(@NonNull ImageView img, @NonNull String absPath, int width, int height) {
+            public void setPlaceHolder(@NonNull View img, int drawableResId) {
 
             }
 
             @Override
-            public void displayRaw(@NonNull ImageView img, @NonNull String absPath, IBoxingCallback callback) {
+            public void displayThumbnail(@NonNull View img, @NonNull String absPath, int width, int height) {
+
+            }
+
+            @Override
+            public void displayRaw(@NonNull View img, @NonNull String absPath, IBoxingCallback callback) {
 
             }
         });

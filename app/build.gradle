@@ -38,6 +38,15 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+
+    productFlavors {
+        base {
+
+        }
+        fresco {
+            applicationId 'com.bilibili.boxing.fresco'
+        }
+    }
 }
 
 dependencies {
@@ -55,4 +64,5 @@ dependencies {
         exclude group: 'com.squareup.okhttp3'
     }
     compile 'com.facebook.fresco:animated-gif:1.0.0'
+    compile 'me.relex:photodraweeview:1.1.2'
 }

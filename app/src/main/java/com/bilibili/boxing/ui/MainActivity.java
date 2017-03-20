@@ -29,7 +29,7 @@ import android.view.View;
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.BoxingMediaLoader;
 import com.bilibili.boxing.demo.R;
-import com.bilibili.boxing.impl.BoxingFrescoLoader;
+import com.bilibili.boxing.impl.FastBoxingFrescoLoader;
 import com.bilibili.boxing.impl.BoxingGlideLoader;
 import com.bilibili.boxing.impl.BoxingPicassoLoader;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IBoxingMediaLoader loader;
         switch (id) {
             case R.id.menu_fresco:
-                loader = new BoxingFrescoLoader(this);
+                loader = new FastBoxingFrescoLoader();
                 break;
             case R.id.menu_glide:
                 loader = new BoxingGlideLoader();
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 loader = new BoxingPicassoLoader();
                 break;
             default:
-                loader = new BoxingFrescoLoader(this);
+                loader = new FastBoxingFrescoLoader();
                 break;
         }
         BoxingMediaLoader.getInstance().init(loader);

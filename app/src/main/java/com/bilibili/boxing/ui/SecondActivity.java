@@ -47,7 +47,7 @@ import java.util.List;
  */
 public class SecondActivity extends AppCompatActivity implements View.OnClickListener {
     private FrameLayout mInsideBottomSheet;
-    private ImageView mResultImg;
+    private View mResultImg;
     private BaseMedia mMedia;
 
     @Override
@@ -56,7 +56,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_second);
         createToolbar();
         findViewById(R.id.inside_bs_btn).setOnClickListener(this);
-        mResultImg = (ImageView) findViewById(R.id.media_result);
+        mResultImg = findViewById(R.id.media_result);
         mResultImg.setOnClickListener(this);
         mInsideBottomSheet = (FrameLayout) findViewById(R.id.content_layout);
         BoxingBottomSheetFragment fragment = (BoxingBottomSheetFragment) getSupportFragmentManager().
@@ -76,7 +76,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                     if (medias != null && medias.size() > 0) {
                         BaseMedia media = mMedia = medias.get(0);
                         String path = media.getPath();
-                        BoxingMediaLoader.getInstance().displayRaw(mResultImg, path, null);
+                        BoxingMediaLoader.getInstance().displayRaw(mResultImg, path, R.drawable.ic_broken_image, null);
                     }
                 }
             });

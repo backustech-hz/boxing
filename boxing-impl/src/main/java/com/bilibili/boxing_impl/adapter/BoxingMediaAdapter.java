@@ -57,7 +57,6 @@ public class BoxingMediaAdapter extends RecyclerView.Adapter {
     private View.OnClickListener mOnMediaClickListener;
     private OnCheckListener mOnCheckListener;
     private OnMediaCheckedListener mOnCheckedListener;
-    private Drawable mDefaultDrawable;
 
     public BoxingMediaAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
@@ -67,7 +66,6 @@ public class BoxingMediaAdapter extends RecyclerView.Adapter {
         this.mOffset = mMediaConfig.isNeedCamera() ? 1 : 0;
         this.mMultiImageMode = mMediaConfig.getMode() == BoxingConfig.Mode.MULTI_IMG;
         this.mOnCheckListener = new OnCheckListener();
-        this.mDefaultDrawable = ContextCompat.getDrawable(context, R.drawable.ic_default_image);
     }
 
     @Override
@@ -96,7 +94,7 @@ public class BoxingMediaAdapter extends RecyclerView.Adapter {
             final BaseMedia media = mMedias.get(pos);
             final ImageViewHolder vh = (ImageViewHolder) holder;
 
-            vh.mItemLayout.setDrawable(mDefaultDrawable);
+            vh.mItemLayout.setDrawable(R.drawable.ic_default_image);
             vh.mItemLayout.setTag(media);
 
             vh.mItemLayout.setOnClickListener(mOnMediaClickListener);

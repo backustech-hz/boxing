@@ -47,7 +47,7 @@ import java.util.List;
  */
 public class BoxingBottomSheetActivity extends AbsBoxingActivity implements View.OnClickListener {
     private BottomSheetBehavior<FrameLayout> mBehavior;
-    private ImageView mImage;
+    private View mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class BoxingBottomSheetActivity extends AbsBoxingActivity implements View
         mBehavior = BottomSheetBehavior.from(bottomSheet);
         mBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
-        mImage = (ImageView) findViewById(R.id.media_result);
+        mImage = findViewById(R.id.media_result);
         mImage.setOnClickListener(this);
     }
 
@@ -153,7 +153,7 @@ public class BoxingBottomSheetActivity extends AbsBoxingActivity implements View
     public void onBoxingFinish(Intent intent, @Nullable List<BaseMedia> medias) {
         if (mImage != null && medias != null && !medias.isEmpty()) {
             ImageMedia imageMedia = (ImageMedia) medias.get(0);
-            BoxingMediaLoader.getInstance().displayRaw(mImage, imageMedia.getPath(), null);
+            BoxingMediaLoader.getInstance().displayRaw(mImage, imageMedia.getPath(), R.drawable.ic_broken_image, null);
         }
         hideBottomSheet();
     }

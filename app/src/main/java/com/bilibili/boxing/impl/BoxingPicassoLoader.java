@@ -19,11 +19,12 @@ package com.bilibili.boxing.impl;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bilibili.boxing.demo.R;
+import com.bilibili.boxing.loader.BaseBoxingMediaLoader;
 import com.bilibili.boxing.loader.IBoxingCallback;
-import com.bilibili.boxing.loader.IBoxingMediaLoader;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
@@ -34,20 +35,21 @@ import com.squareup.picasso.Transformation;
  *
  * @author ChenSL
  */
-public class BoxingPicassoLoader implements IBoxingMediaLoader {
+public class BoxingPicassoLoader extends BaseBoxingMediaLoader {
 
     @Override
-    public void displayThumbnail(@NonNull ImageView img, @NonNull String absPath, int width, int height) {
+    public void displayThumbnail(@NonNull View img, @NonNull String absPath, int width, int height) {
         String path = "file://" + absPath;
-        Picasso.with(img.getContext()).load(path).placeholder(R.drawable.ic_default_image).centerCrop().resize(width, height).into(img);
+        Picasso.with(img.getContext()).load(path).placeholder(R.drawable.ic_default_image).centerCrop().resize(width, height).into((ImageView) img);
     }
 
     @Override
-    public void displayRaw(@NonNull ImageView img, @NonNull String absPath, final IBoxingCallback callback) {
+    public void displayRaw(@NonNull View img, @NonNull String absPath, int failImageResId, final IBoxingCallback callback) {
         String path = "file://" + absPath;
         Picasso.with(img.getContext())
                 .load(path).transform(new BitmapTransform(1080, 720))
-                .into(img, new Callback() {
+                .error(failImageResId)
+                .into((ImageView) img, new Callback() {
                     @Override
                     public void onSuccess() {
                         if (callback != null) {
