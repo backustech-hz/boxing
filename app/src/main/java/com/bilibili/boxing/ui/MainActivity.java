@@ -29,11 +29,14 @@ import android.view.View;
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.BoxingMediaLoader;
 import com.bilibili.boxing.demo.R;
-import com.bilibili.boxing.impl.FastBoxingFrescoLoader;
+import com.bilibili.boxing.impl.BoxingFastFrescoLoader;
+import com.bilibili.boxing.impl.BoxingFrascoViewCreator;
 import com.bilibili.boxing.impl.BoxingGlideLoader;
 import com.bilibili.boxing.impl.BoxingPicassoLoader;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
+import com.bilibili.boxing.loader.IBoxingViewCreator;
 import com.bilibili.boxing.model.config.BoxingConfig;
+import com.bilibili.boxing_impl.DefaultBoxingViewCreator;
 
 /**
  * @author ChenSL
@@ -89,9 +92,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         IBoxingMediaLoader loader;
+        IBoxingViewCreator viewCreator = new BoxingFrascoViewCreator();
         switch (id) {
             case R.id.menu_fresco:
-                loader = new FastBoxingFrescoLoader();
+                loader = new BoxingFastFrescoLoader();
+                viewCreator = new BoxingFrascoViewCreator();
                 break;
             case R.id.menu_glide:
                 loader = new BoxingGlideLoader();
@@ -100,10 +105,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 loader = new BoxingPicassoLoader();
                 break;
             default:
-                loader = new FastBoxingFrescoLoader();
+                loader = new BoxingFastFrescoLoader();
                 break;
         }
-        BoxingMediaLoader.getInstance().init(loader);
+        BoxingMediaLoader.getInstance().init(loader, viewCreator);
         return super.onOptionsItemSelected(item);
     }
 }

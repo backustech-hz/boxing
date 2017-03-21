@@ -29,19 +29,12 @@
 
         <include layout="@layout/layout_app_bar"/>
 
-        <include layout="@layout/boxing_layout_image_view"
-                 android:id="@+id/media_result"
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_gravity="center"
-                 android:padding="@dimen/activity_horizontal_margin" />
-
-        <!--<ImageView-->
-            <!--android:id="@+id/media_result"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:padding="@dimen/activity_horizontal_margin"/>-->
+        <com.bilibili.boxing.BoxingImageView
+            android:id="@+id/media_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:padding="@dimen/activity_horizontal_margin"/>
 
     </LinearLayout>
 

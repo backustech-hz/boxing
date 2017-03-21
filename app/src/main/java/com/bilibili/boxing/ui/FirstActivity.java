@@ -32,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bilibili.boxing.AbsBoxingActivity;
+import com.bilibili.boxing.AbsBoxingViewCreatorActivity;
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.BoxingMediaLoader;
 import com.bilibili.boxing.demo.R;
@@ -54,7 +55,7 @@ import java.util.Locale;
  *
  * @author ChenSL
  */
-public class FirstActivity extends AppCompatActivity implements View.OnClickListener {
+public class FirstActivity extends AbsBoxingViewCreatorActivity implements View.OnClickListener {
     private static final int REQUEST_CODE = 1024;
     private static final int COMPRESS_REQUEST_CODE = 2048;
 

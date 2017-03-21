@@ -24,23 +24,14 @@
                 android:background="?android:selectableItemBackground"
                 android:paddingTop="@dimen/item_spacing">
 
-    <include
-        layout="@layout/boxing_layout_thumbnail"
+    <com.bilibili.boxing.BoxingImageView
         android:id="@+id/album_thumbnail"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="12dp"/>
-
-    <!--<ImageView-->
-        <!--android:id="@+id/album_thumbnail"-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_centerVertical="true"-->
-        <!--android:layout_marginLeft="12dp"-->
-        <!--android:scaleType="centerCrop"/>-->
+        android:layout_marginLeft="12dp"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/album_name"

@@ -20,20 +20,12 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <include
-        layout="@layout/boxing_layout_photo_view"
+    <com.bilibili.boxing.BoxingPhotoView
         android:id="@+id/photo_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_margin="@dimen/item_half_spacing"/>
-
-    <!--<uk.co.senab.photoview.PhotoView-->
-        <!--android:id="@+id/photo_view"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_margin="@dimen/item_half_spacing"/>-->
 
     <ProgressBar
         android:id="@+id/loading"

@@ -44,7 +44,7 @@ import java.util.List;
  *
  * @author ChenSL
  */
-public abstract class AbsBoxingViewActivity extends AppCompatActivity implements PickerContract.View {
+public abstract class AbsBoxingViewActivity extends AbsBoxingViewCreatorActivity implements PickerContract.View {
     ArrayList<BaseMedia> mSelectedImages;
     String mAlbumId;
     int mStartPos;

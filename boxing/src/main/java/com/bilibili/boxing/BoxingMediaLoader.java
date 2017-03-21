@@ -17,12 +17,15 @@
 
 package com.bilibili.boxing;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.util.AttributeSet;
 import android.view.View;
 
 import com.bilibili.boxing.loader.IBoxingCallback;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
+import com.bilibili.boxing.loader.IBoxingViewCreator;
 
 /**
  * A loader holding {@link IBoxingMediaLoader} to displayThumbnail medias.
@@ -32,6 +35,7 @@ import com.bilibili.boxing.loader.IBoxingMediaLoader;
 public class BoxingMediaLoader {
     private static final BoxingMediaLoader INSTANCE = new BoxingMediaLoader();
     private IBoxingMediaLoader mLoader;
+    private IBoxingViewCreator mViewCreator;
 
     private BoxingMediaLoader() {
     }
@@ -40,8 +44,9 @@ public class BoxingMediaLoader {
         return INSTANCE;
     }
 
-    public void init(@NonNull IBoxingMediaLoader loader) {
+    public void init(@NonNull IBoxingMediaLoader loader, @NonNull IBoxingViewCreator viewCreator) {
         this.mLoader = loader;
+        this.mViewCreator = viewCreator;
     }
 
     public void setPlaceHolder(@NonNull View img, int drawableResId) {
@@ -63,6 +68,14 @@ public class BoxingMediaLoader {
             throw new IllegalStateException("init method should be called first");
         }
         mLoader.displayRaw(img, path, failImageResId, callback);
+    }
+
+    public View createBoxingImageView(View parent, Context context, AttributeSet attrs) {
+        return mViewCreator.createBoxingImageView(parent, context, attrs);
+    }
+
+    public View createBoxingPhotoView(View parent, Context context, AttributeSet attrs) {
+        return mViewCreator.createBoxingPhotoView(parent, context, attrs);
     }
 
     public IBoxingMediaLoader getLoader() {

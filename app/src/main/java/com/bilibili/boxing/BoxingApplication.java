@@ -19,9 +19,11 @@ package com.bilibili.boxing;
 
 import android.app.Application;
 
-import com.bilibili.boxing.impl.FastBoxingFrescoLoader;
+import com.bilibili.boxing.impl.BoxingFrascoViewCreator;
+import com.bilibili.boxing.impl.BoxingFastFrescoLoader;
 import com.bilibili.boxing.impl.BoxingUcrop;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
+import com.bilibili.boxing.loader.IBoxingViewCreator;
 
 /**
  * aha, initial work.
@@ -34,8 +36,9 @@ public class BoxingApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        IBoxingMediaLoader loader = new FastBoxingFrescoLoader();
-        BoxingMediaLoader.getInstance().init(loader);
+        IBoxingMediaLoader loader = new BoxingFastFrescoLoader();
+        IBoxingViewCreator viewCreator = new BoxingFrascoViewCreator();
+        BoxingMediaLoader.getInstance().init(loader, viewCreator);
         BoxingCrop.getInstance().init(new BoxingUcrop());
     }
 }

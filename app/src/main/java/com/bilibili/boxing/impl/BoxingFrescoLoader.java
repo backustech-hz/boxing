@@ -25,6 +25,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bilibili.boxing.demo.R;
@@ -94,7 +95,12 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
 
 
     @Override
-    public void displayThumbnail(@NonNull final ImageView img, @NonNull final String absPath, int width, int height) {
+    public void setPlaceHolder(@NonNull View img, int drawableResId) {
+        ((ImageView) img).setImageResource(drawableResId);
+    }
+
+    @Override
+    public void displayThumbnail(@NonNull final View img, @NonNull final String absPath, int width, int height) {
         String finalAbsPath = "file://" + absPath;
         ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(finalAbsPath));
         requestBuilder.setResizeOptions(new ResizeOptions(width, height));
@@ -113,26 +119,26 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
                         return;
                     }
                     CloseableStaticBitmap bitmap = (CloseableStaticBitmap) dataSource.getResult().get();
-                    img.setImageBitmap(bitmap.getUnderlyingBitmap());
+                    ((ImageView) img).setImageBitmap(bitmap.getUnderlyingBitmap());
                 }
             }
 
             @Override
             protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
-                img.setImageResource(R.drawable.ic_default_image);
+                ((ImageView) img).setImageResource(R.drawable.ic_default_image);
             }
         }, UiThreadImmediateExecutorService.getInstance());
     }
 
     @Override
-    public void displayRaw(@NonNull ImageView img, @NonNull String absPath, IBoxingCallback callback) {
+    public void displayRaw(@NonNull View img, @NonNull String absPath, int failImageResId, IBoxingCallback callback) {
         absPath = "file://" + absPath;
         ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(absPath));
         ImageRequest request = requestBuilder.build();
-        loadImage(request, img, callback);
+        loadImage(request, (ImageView) img, failImageResId, callback);
     }
 
-    private void loadImage(final ImageRequest request, final ImageView imageView, final IBoxingCallback callback) {
+    private void loadImage(final ImageRequest request, final ImageView imageView, final int failImageResId, final IBoxingCallback callback) {
         final DataSource<CloseableReference<CloseableImage>> dataSource =
                 Fresco.getImagePipeline().fetchDecodedImage(request, null);
         dataSource.subscribe(new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
@@ -168,6 +174,7 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
 
             @Override
             protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
+                imageView.setImageResource(failImageResId);
                 if (callback == null) {
                     return;
                 }

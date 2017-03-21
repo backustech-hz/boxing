@@ -18,7 +18,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
  * Created by yhf on 2017/3/20.
  */
 
-public class FastBoxingFrescoLoader implements IBoxingMediaLoader {
+public class BoxingFastFrescoLoader implements IBoxingMediaLoader {
     @Override
     public void setPlaceHolder(@NonNull View img, int drawableResId) {
         ((SimpleDraweeView) img).getHierarchy().setPlaceholderImage(drawableResId);

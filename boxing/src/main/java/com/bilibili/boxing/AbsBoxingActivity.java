@@ -36,7 +36,7 @@ import java.util.ArrayList;
  *
  * @author ChenSL
  */
-public abstract class AbsBoxingActivity extends AppCompatActivity implements Boxing.OnBoxingFinishListener {
+public abstract class AbsBoxingActivity extends AbsBoxingViewCreatorActivity implements Boxing.OnBoxingFinishListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
