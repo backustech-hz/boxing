@@ -47,7 +47,7 @@ public class MediaItemLayoutTest {
     public void setup() {
         BoxingMediaLoader.getInstance().init(new IBoxingMediaLoader() {
             @Override
-            public void setPlaceHolder(@NonNull View img, int drawableResId) {
+            public void setImageResource(@NonNull View img, int drawableResId) {
 
             }
 

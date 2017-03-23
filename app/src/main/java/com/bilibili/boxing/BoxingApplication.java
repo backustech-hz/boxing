@@ -24,6 +24,7 @@ import com.bilibili.boxing.impl.BoxingFastFrescoLoader;
 import com.bilibili.boxing.impl.BoxingUcrop;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
 import com.bilibili.boxing.loader.IBoxingViewCreator;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
  * aha, initial work.
@@ -35,6 +36,8 @@ public class BoxingApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Fresco.initialize(this);
 
         IBoxingMediaLoader loader = new BoxingFastFrescoLoader();
         IBoxingViewCreator viewCreator = new BoxingFrascoViewCreator();

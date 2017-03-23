@@ -18,7 +18,6 @@
 package com.bilibili.boxing;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
@@ -49,11 +48,11 @@ public class BoxingMediaLoader {
         this.mViewCreator = viewCreator;
     }
 
-    public void setPlaceHolder(@NonNull View img, int drawableResId) {
+    public void setImageResource(@NonNull View img, int drawableResId) {
         if (ensureLoader()) {
             throw new IllegalStateException("init method should be called first");
         }
-        mLoader.setPlaceHolder(img, drawableResId);
+        mLoader.setImageResource(img, drawableResId);
     }
 
     public void displayThumbnail(@NonNull View img, @NonNull String path, int width, int height) {
@@ -63,19 +62,19 @@ public class BoxingMediaLoader {
         mLoader.displayThumbnail(img, path, width, height);
     }
 
-    public void displayRaw(@NonNull View img, @NonNull String path, int failImageResId, IBoxingCallback callback) {
+    public void displayRaw(@NonNull View img, @NonNull String path, IBoxingCallback callback) {
         if (ensureLoader()) {
             throw new IllegalStateException("init method should be called first");
         }
-        mLoader.displayRaw(img, path, failImageResId, callback);
+        mLoader.displayRaw(img, path, callback);
     }
 
-    public View createBoxingImageView(View parent, Context context, AttributeSet attrs) {
-        return mViewCreator.createBoxingImageView(parent, context, attrs);
+    public View createImageView(View parent, Context context, AttributeSet attrs) {
+        return mViewCreator.createImageView(parent, context, attrs);
     }
 
-    public View createBoxingPhotoView(View parent, Context context, AttributeSet attrs) {
-        return mViewCreator.createBoxingPhotoView(parent, context, attrs);
+    public View createPhotoView(View parent, Context context, AttributeSet attrs) {
+        return mViewCreator.createPhotoView(parent, context, attrs);
     }
 
     public IBoxingMediaLoader getLoader() {

@@ -17,7 +17,6 @@
 
 package com.bilibili.boxing.loader;
 
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -27,7 +26,7 @@ import android.view.View;
  * @author ChenSL
  */
 public interface IBoxingMediaLoader {
-    void setPlaceHolder(@NonNull View img, int drawableResId);
+    void setImageResource(@NonNull View img, int imageResId);
     /**
      * display thumbnail images for a ImageView.
      *
@@ -45,5 +44,5 @@ public interface IBoxingMediaLoader {
      * @param absPath  the absolute path to display, may be out of date when fast scrolling.
      * @param callback the callback for the load result.
      */
-    void displayRaw(@NonNull View img, @NonNull String absPath, int failImageResId, IBoxingCallback callback);
+    void displayRaw(@NonNull View img, @NonNull String absPath, IBoxingCallback callback);
 }

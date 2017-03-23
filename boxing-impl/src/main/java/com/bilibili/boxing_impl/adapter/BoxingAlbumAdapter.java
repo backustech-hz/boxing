@@ -67,7 +67,7 @@ public class BoxingAlbumAdapter extends RecyclerView.Adapter implements View.OnC
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final AlbumViewHolder albumViewHolder = (AlbumViewHolder) holder;
 //        albumViewHolder.mCoverImg.setImageResource(R.drawable.ic_default_image);
-        BoxingMediaLoader.getInstance().setPlaceHolder(albumViewHolder.mCoverImg, R.drawable.ic_default_image);
+        BoxingMediaLoader.getInstance().setImageResource(albumViewHolder.mCoverImg, R.drawable.ic_default_image);
         final int adapterPos = holder.getAdapterPosition();
         final AlbumEntity album = mAlums.get(adapterPos);
 

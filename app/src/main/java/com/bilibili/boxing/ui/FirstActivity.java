@@ -20,7 +20,6 @@ package com.bilibili.boxing.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -199,7 +198,7 @@ public class FirstActivity extends AbsBoxingViewCreatorActivity implements View.
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             if (holder instanceof MediaViewHolder) {
                 MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
-                mediaViewHolder.mImageView.setImageResource(R.drawable.ic_default_image);
+                BoxingMediaLoader.getInstance().setImageResource(mediaViewHolder.mImageView, R.drawable.ic_default_image);
                 BaseMedia media = mList.get(position);
                 String path;
                 if (media instanceof ImageMedia) {
@@ -220,11 +219,11 @@ public class FirstActivity extends AbsBoxingViewCreatorActivity implements View.
     }
 
     private class MediaViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mImageView;
+        private View mImageView;
 
         MediaViewHolder(View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.media_item);
+            mImageView = itemView.findViewById(R.id.media_item);
         }
     }
 

@@ -44,11 +44,10 @@ public class BoxingPicassoLoader extends BaseBoxingMediaLoader {
     }
 
     @Override
-    public void displayRaw(@NonNull View img, @NonNull String absPath, int failImageResId, final IBoxingCallback callback) {
+    public void displayRaw(@NonNull View img, @NonNull String absPath, final IBoxingCallback callback) {
         String path = "file://" + absPath;
         Picasso.with(img.getContext())
                 .load(path).transform(new BitmapTransform(1080, 720))
-                .error(failImageResId)
                 .into((ImageView) img, new Callback() {
                     @Override
                     public void onSuccess() {

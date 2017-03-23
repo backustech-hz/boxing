@@ -95,7 +95,7 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
 
 
     @Override
-    public void setPlaceHolder(@NonNull View img, int drawableResId) {
+    public void setImageResource(@NonNull View img, int drawableResId) {
         ((ImageView) img).setImageResource(drawableResId);
     }
 
@@ -131,14 +131,14 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
     }
 
     @Override
-    public void displayRaw(@NonNull View img, @NonNull String absPath, int failImageResId, IBoxingCallback callback) {
+    public void displayRaw(@NonNull View img, @NonNull String absPath, IBoxingCallback callback) {
         absPath = "file://" + absPath;
         ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(absPath));
         ImageRequest request = requestBuilder.build();
-        loadImage(request, (ImageView) img, failImageResId, callback);
+        loadImage(request, (ImageView) img, callback);
     }
 
-    private void loadImage(final ImageRequest request, final ImageView imageView, final int failImageResId, final IBoxingCallback callback) {
+    private void loadImage(final ImageRequest request, final ImageView imageView, final IBoxingCallback callback) {
         final DataSource<CloseableReference<CloseableImage>> dataSource =
                 Fresco.getImagePipeline().fetchDecodedImage(request, null);
         dataSource.subscribe(new BaseDataSubscriber<CloseableReference<CloseableImage>>() {
@@ -174,7 +174,6 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
 
             @Override
             protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
-                imageView.setImageResource(failImageResId);
                 if (callback == null) {
                     return;
                 }

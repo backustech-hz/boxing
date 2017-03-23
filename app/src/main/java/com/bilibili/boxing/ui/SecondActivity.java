@@ -78,7 +78,7 @@ public class SecondActivity extends AbsBoxingViewCreatorActivity implements View
                     if (medias != null && medias.size() > 0) {
                         BaseMedia media = mMedia = medias.get(0);
                         String path = media.getPath();
-                        BoxingMediaLoader.getInstance().displayRaw(mResultImg, path, R.drawable.ic_broken_image, null);
+                        BoxingMediaLoader.getInstance().displayRaw(mResultImg, path, null);
                     }
                 }
             });

@@ -5,10 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.View;
 
-/**
- * Created by yhf on 2017/3/21.
- */
-
 public class AbsBoxingViewCreatorActivity extends AppCompatActivity {
 
     @Override
@@ -16,9 +12,9 @@ public class AbsBoxingViewCreatorActivity extends AppCompatActivity {
         View v = super.onCreateView(parent, name, context, attrs);
         if (v == null) {
             if (BoxingImageView.NAME.equals(name)) {
-                v = BoxingMediaLoader.getInstance().createBoxingImageView(parent, context, attrs);
+                v = BoxingMediaLoader.getInstance().createImageView(parent, context, attrs);
             } else if (BoxingPhotoView.NAME.equals(name)) {
-                v = BoxingMediaLoader.getInstance().createBoxingPhotoView(parent, context, attrs);
+                v = BoxingMediaLoader.getInstance().createPhotoView(parent, context, attrs);
             }
         }
         return v;

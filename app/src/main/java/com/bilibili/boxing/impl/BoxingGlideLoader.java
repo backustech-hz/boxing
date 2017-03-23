@@ -49,7 +49,7 @@ public class BoxingGlideLoader extends BaseBoxingMediaLoader {
     }
 
     @Override
-    public void displayRaw(@NonNull final View img, @NonNull String absPath, int failImageResId, final IBoxingCallback callback) {
+    public void displayRaw(@NonNull final View img, @NonNull String absPath, final IBoxingCallback callback) {
         String path = "file://" + absPath;
         Glide.with(img.getContext())
                 .load(path)
@@ -74,7 +74,6 @@ public class BoxingGlideLoader extends BaseBoxingMediaLoader {
                         return false;
                     }
                 })
-                .error(failImageResId)
                 .into((ImageView) img);
 
     }

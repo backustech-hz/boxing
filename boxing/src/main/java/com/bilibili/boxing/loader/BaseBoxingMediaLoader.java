@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 public abstract class BaseBoxingMediaLoader implements IBoxingMediaLoader {
     @Override
-    public void setPlaceHolder(@NonNull View img, int drawableResId) {
+    public void setImageResource(@NonNull View img, int drawableResId) {
         ((ImageView) img).setImageResource(drawableResId);
     }
 }

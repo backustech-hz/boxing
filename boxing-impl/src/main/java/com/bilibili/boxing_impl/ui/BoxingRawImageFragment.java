@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.bilibili.boxing.AbsBoxingViewActivity;
+import com.bilibili.boxing.BoxingMediaLoader;
 import com.bilibili.boxing.loader.IBoxingCallback;
 import com.bilibili.boxing.model.entity.impl.ImageMedia;
 import com.bilibili.boxing.utils.BoxingLog;
@@ -76,7 +77,7 @@ public class BoxingRawImageFragment extends Fragment {
 //        mAttacher = new PhotoViewAttacher(mImageView);
 //        mAttacher.setRotatable(true);
 //        mAttacher.setToRightAngle(true);
-        ((AbsBoxingViewActivity) getActivity()).loadRawImage(mImageView, mMedia.getPath(), R.drawable.ic_broken_image, new BoxingCallback(this));
+        ((AbsBoxingViewActivity) getActivity()).loadRawImage(mImageView, mMedia.getPath(), new BoxingCallback(this));
     }
 
     private void dismissProgressDialog() {
@@ -146,6 +147,7 @@ public class BoxingRawImageFragment extends Fragment {
             }
             BoxingLog.d(t != null ? t.getMessage() : "load raw image error.");
             mWr.get().dismissProgressDialog();
+            BoxingMediaLoader.getInstance().setImageResource(mWr.get().mImageView, R.drawable.ic_broken_image);
 //            mWr.get().mImageView.setImageResource(R.drawable.ic_broken_image);
 //            if (mWr.get().mAttacher != null) {
 //                mWr.get().mAttacher.update();
