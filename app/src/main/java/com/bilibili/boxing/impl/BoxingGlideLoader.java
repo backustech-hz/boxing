@@ -42,7 +42,7 @@ public class BoxingGlideLoader extends BaseBoxingMediaLoader {
         String path = "file://" + absPath;
         try {
             // https://github.com/bumptech/glide/issues/1531
-            Glide.with(img.getContext()).load(path).placeholder(R.drawable.ic_default_image).crossFade().centerCrop().into((ImageView) img);
+            Glide.with(img.getContext()).load(path).placeholder(R.drawable.ic_boxing_default_image).crossFade().centerCrop().into((ImageView) img);
         } catch(IllegalArgumentException ignore) {
         }
 

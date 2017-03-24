@@ -104,7 +104,7 @@ public class FirstActivity extends AbsBoxingViewCreatorActivity implements View.
             case R.id.single_image_btn_crop_btn:
                 String cachePath = BoxingFileHelper.getCacheDir(this);
                 if (TextUtils.isEmpty(cachePath)) {
-                    Toast.makeText(getApplicationContext(), R.string.storage_deny, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.boxing_storage_deny, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Uri destUri = new Uri.Builder()
@@ -188,7 +188,7 @@ public class FirstActivity extends AbsBoxingViewCreatorActivity implements View.
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_simple_media_item, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_boxing_simple_media_item, parent, false);
             int height = parent.getMeasuredHeight() / 4;
             view.setMinimumHeight(height);
             return new MediaViewHolder(view);
@@ -198,7 +198,7 @@ public class FirstActivity extends AbsBoxingViewCreatorActivity implements View.
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             if (holder instanceof MediaViewHolder) {
                 MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
-                BoxingMediaLoader.getInstance().setImageResource(mediaViewHolder.mImageView, R.drawable.ic_default_image);
+                BoxingMediaLoader.getInstance().setImageResource(mediaViewHolder.mImageView, R.drawable.ic_boxing_default_image);
                 BaseMedia media = mList.get(position);
                 String path;
                 if (media instanceof ImageMedia) {

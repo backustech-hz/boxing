@@ -44,7 +44,6 @@ import com.facebook.imagepipeline.animated.base.AnimatedDrawable;
 import com.facebook.imagepipeline.animated.factory.AnimatedDrawableFactory;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
 import com.facebook.imagepipeline.image.CloseableAnimatedImage;
 import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.image.CloseableStaticBitmap;
@@ -112,20 +111,20 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
 
             @Override
             protected void onNewResultImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
-                String path = (String) img.getTag(R.string.app_name);
+                String path = (String) img.getTag(R.string.boxing_app_name);
                 if (path == null || absPath.equals(path)) {
                     if (dataSource.getResult() == null) {
                         onFailureImpl(dataSource);
                         return;
                     }
-                    CloseableStaticBitmap bitmap = (CloseableStaticBitmap) dataSource.getResult().get();
-                    ((ImageView) img).setImageBitmap(bitmap.getUnderlyingBitmap());
+                    Drawable drawable = createDrawableFromFetchedResult(img.getContext(), dataSource.getResult().get());
+                    ((ImageView) img).setImageDrawable(drawable);
                 }
             }
 
             @Override
             protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
-                ((ImageView) img).setImageResource(R.drawable.ic_default_image);
+                ((ImageView) img).setImageResource(R.drawable.ic_boxing_default_image);
             }
         }, UiThreadImmediateExecutorService.getInstance());
     }
