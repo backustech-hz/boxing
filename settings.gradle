@@ -15,4 +15,4 @@
  *
  */
 
-include ':app', ':boxing', ':boxing-impl'
+include ':app', ':boxing', ':boxing-impl', ':boxing-fresco'
