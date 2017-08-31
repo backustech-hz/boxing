@@ -78,7 +78,7 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
         if (TextUtils.isEmpty(cache)) {
             throw new IllegalStateException("the cache dir is null");
         }
-        if (cache != null) {
+        if (!TextUtils.isEmpty(cache)) {
             DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(context)
                     .setBaseDirectoryPath(new File(cache))
                     .setBaseDirectoryName(IMAGE_PIPELINE_CACHE_DIR)
@@ -124,15 +124,18 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
 
             @Override
             protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
-                ((ImageView) img).setImageResource(R.drawable.ic_boxing_default_image);
+                ((ImageView) img).setImageResource(R.drawable.ic_boxing_broken_image);
             }
         }, UiThreadImmediateExecutorService.getInstance());
     }
 
     @Override
-    public void displayRaw(@NonNull View img, @NonNull String absPath, IBoxingCallback callback) {
+    public void displayRaw(@NonNull View img, @NonNull String absPath, int width, int height, IBoxingCallback callback) {
         absPath = "file://" + absPath;
         ImageRequestBuilder requestBuilder = ImageRequestBuilder.newBuilderWithSource(Uri.parse(absPath));
+        if (width > 0 && height > 0) {
+            requestBuilder.setResizeOptions(new ResizeOptions(width, height));
+        }
         ImageRequest request = requestBuilder.build();
         loadImage(request, (ImageView) img, callback);
     }
@@ -178,8 +181,9 @@ public class BoxingFrescoLoader implements IBoxingMediaLoader {
                 }
                 if (dataSource == null) {
                     callback.onFail(new NullPointerException("data source is null."));
+                } else {
+                    callback.onFail(dataSource.getFailureCause());
                 }
-                callback.onFail(dataSource.getFailureCause());
             }
 
         }, UiThreadImmediateExecutorService.getInstance());

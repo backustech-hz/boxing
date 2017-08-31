@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         IBoxingMediaLoader loader;
-        IBoxingViewCreator viewCreator = new BoxingFrascoViewCreator();
+        IBoxingViewCreator viewCreator = new DefaultBoxingViewCreator();
         switch (id) {
             case R.id.menu_fresco:
                 loader = new BoxingFastFrescoLoader();

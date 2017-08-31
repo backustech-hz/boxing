@@ -24,7 +24,7 @@
 <dependency>                                                      
   	<groupId>com.bilibili</groupId>                                    
   	<artifactId>boxing</artifactId>                                    
-  	<version>0.4.0</version>                                       
+  	<version>0.8.0</version>                                       
   	<type>pom</type>                                                
 </dependency> 
 ```
@@ -33,7 +33,7 @@
 <dependency>                                                          
   	<groupId>com.bilibili</groupId>                                    
   	<artifactId>boxing-impl</artifactId>                              
-  	<version>0.4.0</version>                                       
+  	<version>0.8.0</version>                                       
   	<type>pom</type>                                                  
 </dependency>                                                      
 ```
@@ -41,11 +41,11 @@
   ​                                                    
   核心版本                                                                 
 ```java                                                                         
-compile 'com.bilibili:boxing:0.4.0'                              
+compile 'com.bilibili:boxing:0.8.0'                              
 ```
 实现版本                                                                   
 ```java                                                                        
-compile 'com.bilibili:boxing-impl:0.4.0'               
+compile 'com.bilibili:boxing-impl:0.8.0'               
 ```
 
 ### 预览图
@@ -70,7 +70,10 @@ BoxingCrop.getInstance().init(new IBoxingCrop());  // 需要实现 IBoxingCrop
   指定模式：图片单选，多选，视频单选，是否支持gif和相机。
 ```java
 BoxingConfig config = new BoxingConfig(Mode); // Mode：Mode.SINGLE_IMG, Mode.MULTI_IMG, Mode.VIDEO
-config.needCamera().needGif().withMaxCount(9); // 支持gif,相机，设置最大选图数
+config.needCamera(cameraRes).needGif().withMaxCount(9); // 支持gif，相机，设置最大选图数
+.withMediaPlaceHolderRes(resInt) // 设置默认图片占位图，默认无
+.withAlbumPlaceHolderRes(resInt) // 设置默认相册占位图，默认无
+.withVideoDurationRes(resInt) // 视频模式下，时长的图标，默认无
 ```
 - 初始化Boxing，构造Intent并启动
 ```java
@@ -115,6 +118,9 @@ Android N 版本使用相机必须在AndroidManifest.xml中添加
 		android:resource="@xml/boxing_file_provider"/>
 </provider>                 
 ```
+
+### Kotlin
+checkout `feature/kotlin` 来玩一玩吧。
 
 ### TODO
 支持同时存在多个不同的config。

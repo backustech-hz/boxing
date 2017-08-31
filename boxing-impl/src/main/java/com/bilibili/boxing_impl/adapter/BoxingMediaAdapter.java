@@ -18,18 +18,18 @@
 package com.bilibili.boxing_impl.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bilibili.boxing.model.BoxingManager;
 import com.bilibili.boxing.model.config.BoxingConfig;
 import com.bilibili.boxing.model.entity.BaseMedia;
 import com.bilibili.boxing.model.entity.impl.ImageMedia;
+import com.bilibili.boxing_impl.BoxingResHelper;
 import com.bilibili.boxing_impl.R;
 import com.bilibili.boxing_impl.view.MediaItemLayout;
 
@@ -57,6 +57,7 @@ public class BoxingMediaAdapter extends RecyclerView.Adapter {
     private View.OnClickListener mOnMediaClickListener;
     private OnCheckListener mOnCheckListener;
     private OnMediaCheckedListener mOnCheckedListener;
+    private int mDefaultRes;
 
     public BoxingMediaAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
@@ -66,7 +67,7 @@ public class BoxingMediaAdapter extends RecyclerView.Adapter {
         this.mOffset = mMediaConfig.isNeedCamera() ? 1 : 0;
         this.mMultiImageMode = mMediaConfig.getMode() == BoxingConfig.Mode.MULTI_IMG;
         this.mOnCheckListener = new OnCheckListener();
-//        this.mDefaultDrawable = ContextCompat.getDrawable(context, R.drawable.ic_boxing_default_image);
+        this.mDefaultRes = mMediaConfig.getMediaPlaceHolderRes();
     }
 
     @Override
@@ -90,12 +91,13 @@ public class BoxingMediaAdapter extends RecyclerView.Adapter {
         if (holder instanceof CameraViewHolder) {
             CameraViewHolder viewHolder = (CameraViewHolder) holder;
             viewHolder.mCameraLayout.setOnClickListener(mOnCameraClickListener);
+            viewHolder.mCameraImg.setImageResource(BoxingResHelper.getCameraRes());
         } else {
             int pos = position - mOffset;
             final BaseMedia media = mMedias.get(pos);
             final ImageViewHolder vh = (ImageViewHolder) holder;
 
-            vh.mItemLayout.setDrawable(R.drawable.ic_boxing_default_image);
+            vh.mItemLayout.setImageRes(mDefaultRes);
             vh.mItemLayout.setTag(media);
 
             vh.mItemLayout.setOnClickListener(mOnMediaClickListener);
@@ -176,10 +178,12 @@ public class BoxingMediaAdapter extends RecyclerView.Adapter {
 
     private static class CameraViewHolder extends RecyclerView.ViewHolder {
         View mCameraLayout;
+        ImageView mCameraImg;
 
         CameraViewHolder(final View itemView) {
             super(itemView);
             mCameraLayout = itemView.findViewById(R.id.camera_layout);
+            mCameraImg = (ImageView) itemView.findViewById(R.id.camera_img);
         }
     }
 

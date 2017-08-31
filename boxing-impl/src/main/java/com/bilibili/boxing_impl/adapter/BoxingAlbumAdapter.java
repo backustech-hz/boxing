@@ -19,6 +19,7 @@ package com.bilibili.boxing_impl.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bilibili.boxing.BoxingMediaLoader;
+import com.bilibili.boxing.model.BoxingManager;
 import com.bilibili.boxing.model.entity.AlbumEntity;
 import com.bilibili.boxing.model.entity.impl.ImageMedia;
 import com.bilibili.boxing_impl.R;
@@ -47,11 +49,13 @@ public class BoxingAlbumAdapter extends RecyclerView.Adapter implements View.OnC
     private List<AlbumEntity> mAlums;
     private LayoutInflater mInflater;
     private OnAlbumClickListener mAlbumOnClickListener;
+    private int mDefaultRes;
 
     public BoxingAlbumAdapter(Context context) {
         this.mAlums = new ArrayList<>();
         this.mAlums.add(AlbumEntity.createDefaultAlbum());
         this.mInflater = LayoutInflater.from(context);
+        this.mDefaultRes = BoxingManager.getInstance().getBoxingConfig().getAlbumPlaceHolderRes();
     }
 
     public void setAlbumOnClickListener(OnAlbumClickListener albumOnClickListener) {
@@ -66,16 +70,18 @@ public class BoxingAlbumAdapter extends RecyclerView.Adapter implements View.OnC
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final AlbumViewHolder albumViewHolder = (AlbumViewHolder) holder;
-//        albumViewHolder.mCoverImg.setImageResource(R.drawable.ic_boxing_default_image);
-        BoxingMediaLoader.getInstance().setImageResource(albumViewHolder.mCoverImg, R.drawable.ic_boxing_default_image);
+        BoxingMediaLoader.getInstance().setImageResource(albumViewHolder.mCoverImg, mDefaultRes);
         final int adapterPos = holder.getAdapterPosition();
         final AlbumEntity album = mAlums.get(adapterPos);
 
         if (album != null && album.hasImages()) {
-            albumViewHolder.mNameTxt.setText(album.mBucketName);
+            String albumName = TextUtils.isEmpty(album.mBucketName) ?
+                    albumViewHolder.mNameTxt.getContext().getString(R.string.boxing_default_album_name) :album.mBucketName;
+            albumViewHolder.mNameTxt.setText(albumName);
             ImageMedia media = (ImageMedia) album.mImageList.get(0);
             if (media != null) {
                 BoxingMediaLoader.getInstance().displayThumbnail(albumViewHolder.mCoverImg, media.getPath(), 50, 50);
+                albumViewHolder.mCoverImg.setTag(R.string.boxing_app_name, media.getPath());
             }
             albumViewHolder.mLayout.setTag(adapterPos);
             albumViewHolder.mLayout.setOnClickListener(this);

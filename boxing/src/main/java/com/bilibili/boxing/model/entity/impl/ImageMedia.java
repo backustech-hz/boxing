@@ -105,7 +105,11 @@ public class ImageMedia extends BaseMedia implements Parcelable {
         return CompressTask.compress(imageCompressor, this, MAX_IMAGE_SIZE);
     }
 
-    public boolean compress(ImageCompressor imageCompressor, int maxSize) {
+    /**
+     * @param maxSize the proximate max size for compression
+     * @return may be a little bigger than expected for performance.
+     */
+    public boolean compress(ImageCompressor imageCompressor, long maxSize) {
         return CompressTask.compress(imageCompressor, this, maxSize);
     }
 
@@ -154,6 +158,10 @@ public class ImageMedia extends BaseMedia implements Parcelable {
 
     public int getWidth() {
         return mWidth;
+    }
+
+    public String getCompressPath() {
+        return mCompressPath;
     }
 
     public void removeExif() {

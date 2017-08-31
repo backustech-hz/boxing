@@ -15,10 +15,15 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
+import me.relex.photodraweeview.PhotoDraweeView;
+
 public class BoxingFastFrescoLoader implements IBoxingMediaLoader {
     @Override
     public void setImageResource(@NonNull View img, int drawableResId) {
-        ((SimpleDraweeView) img).getHierarchy().setPlaceholderImage(drawableResId);
+        if (drawableResId != 0) {
+            // TODO drawableResId 为0 时表示设置为空
+            ((SimpleDraweeView) img).getHierarchy().setPlaceholderImage(drawableResId);
+        }
     }
 
     @Override
@@ -33,10 +38,12 @@ public class BoxingFastFrescoLoader implements IBoxingMediaLoader {
     }
 
     @Override
-    public void displayRaw(@NonNull View img, @NonNull String absPath, final IBoxingCallback callback) {
+    public void displayRaw(@NonNull final View img, @NonNull String absPath, int width, int height, final IBoxingCallback callback) {
         SimpleDraweeView simpleDraweeView = ((SimpleDraweeView) img);
         PipelineDraweeControllerBuilder draweeControllerBuilder = Fresco.newDraweeControllerBuilder()
-                .setUri(Uri.parse("file://" + absPath))
+                .setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.parse("file://" + absPath))
+                        .setResizeOptions(ResizeOptions.forDimensions(width, height))
+                        .build())
                 .setOldController(simpleDraweeView.getController());
         if (callback != null) {
             draweeControllerBuilder.setControllerListener(new ControllerListener<ImageInfo>() {
@@ -47,6 +54,9 @@ public class BoxingFastFrescoLoader implements IBoxingMediaLoader {
 
                 @Override
                 public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                    if (img instanceof PhotoDraweeView) {
+                        ((PhotoDraweeView) img).update(imageInfo.getWidth(), imageInfo.getHeight());
+                    }
                     callback.onSuccess();
                 }
 

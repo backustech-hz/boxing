@@ -19,6 +19,7 @@ package com.bilibili.boxing_impl.view;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -29,9 +30,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bilibili.boxing.BoxingMediaLoader;
+import com.bilibili.boxing.model.BoxingManager;
 import com.bilibili.boxing.model.entity.BaseMedia;
 import com.bilibili.boxing.model.entity.impl.ImageMedia;
 import com.bilibili.boxing.model.entity.impl.VideoMedia;
+import com.bilibili.boxing_impl.BoxingResHelper;
 import com.bilibili.boxing_impl.R;
 import com.bilibili.boxing_impl.WindowManagerHelper;
 
@@ -115,10 +118,9 @@ public class MediaItemLayout extends FrameLayout {
         return result;
     }
 
-    public void setDrawable(int drawableResId) {
+    public void setImageRes(@DrawableRes int imageRes) {
         if (mCoverImg != null) {
-//            mCoverImg.setImageDrawable(drawable);
-            BoxingMediaLoader.getInstance().setImageResource(mCoverImg, drawableResId);
+            BoxingMediaLoader.getInstance().setImageResource(mCoverImg, imageRes);
         }
     }
 
@@ -129,7 +131,9 @@ public class MediaItemLayout extends FrameLayout {
         } else if (media instanceof VideoMedia) {
             mVideoLayout.setVisibility(VISIBLE);
             VideoMedia videoMedia = (VideoMedia) media;
-            ((TextView) mVideoLayout.findViewById(R.id.video_duration_txt)).setText(videoMedia.getDuration());
+            TextView durationTxt = ((TextView) mVideoLayout.findViewById(R.id.video_duration_txt));
+            durationTxt.setText(videoMedia.getDuration());
+            durationTxt.setCompoundDrawablesWithIntrinsicBounds(BoxingManager.getInstance().getBoxingConfig().getVideoDurationRes(), 0, 0, 0);
             ((TextView) mVideoLayout.findViewById(R.id.video_size_txt)).setText(videoMedia.getSizeByUnit());
             setCover(videoMedia.getPath());
         }
@@ -147,10 +151,10 @@ public class MediaItemLayout extends FrameLayout {
     public void setChecked(boolean isChecked) {
         if (isChecked) {
             mFontLayout.setVisibility(View.VISIBLE);
-            mCheckImg.setImageDrawable(getResources().getDrawable(R.drawable.ic_boxing_checked));
+            mCheckImg.setImageDrawable(getResources().getDrawable(BoxingResHelper.getMediaCheckedRes()));
         } else {
             mFontLayout.setVisibility(View.GONE);
-            mCheckImg.setImageDrawable(getResources().getDrawable(R.drawable.shape_boxing_unchecked));
+            mCheckImg.setImageDrawable(getResources().getDrawable(BoxingResHelper.getMediaUncheckedRes()));
         }
     }
 

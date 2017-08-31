@@ -62,11 +62,11 @@ public class BoxingMediaLoader {
         mLoader.displayThumbnail(img, path, width, height);
     }
 
-    public void displayRaw(@NonNull View img, @NonNull String path, IBoxingCallback callback) {
+    public void displayRaw(@NonNull View img, @NonNull String path, int width, int height, IBoxingCallback callback) {
         if (ensureLoader()) {
             throw new IllegalStateException("init method should be called first");
         }
-        mLoader.displayRaw(img, path, callback);
+        mLoader.displayRaw(img, path, width, height, callback);
     }
 
     public View createImageView(View parent, Context context, AttributeSet attrs) {

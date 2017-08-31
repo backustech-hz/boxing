@@ -27,7 +27,7 @@ Core version
 <dependency>                       
   	<groupId>com.bilibili</groupId>  
   	<artifactId>boxing</artifactId>  
-  	<version>0.4.0</version>
+  	<version>0.8.0</version>
   	<type>pom</type>                
 </dependency>                      		
 ```
@@ -38,7 +38,7 @@ UI version
 <dependency>                          
   	<groupId>com.bilibili</groupId>     
   	<artifactId>boxing-impl</artifactId>
-  	<version>0.4.0</version>   
+  	<version>0.8.0</version>   
   	<type>pom</type>                    
 </dependency>                         
 ```
@@ -47,12 +47,12 @@ UI version
 
 Core version              
 ```java
-compile 'com.bilibili:boxing:0.4.0'
+compile 'com.bilibili:boxing:0.8.0'
 ```
 
 UI version
 ```java
-compile 'com.bilibili:boxing-impl:0.4.0'
+compile 'com.bilibili:boxing-impl:0.8.0'
 ```
 
 ### Preview
@@ -76,7 +76,10 @@ BoxingCrop.getInstance().init(new IBoxingCrop());  // a class implements IBoxing
   Specify the mode(Mode.SINGLE_IMG, Mode.MULTI_IMG, Mode.VIDEO) with camera and gif support. 
 ```java
 BoxingConfig config = new BoxingConfig(Mode); // Mode：Mode.SINGLE_IMG, Mode.MULTI_IMG, Mode.VIDEO
-config.needCamera().needGif().withMaxCount(9) // camera, gif support, set selected images count
+config.needCamera(cameraRes).needGif().withMaxCount(9) // camera, gif support, set selected images count
+.withMediaPlaceHolderRes(resInt) // set the image placeholder, default 0
+.withAlbumPlaceHolderRes(resInt) // set the album placeholder, default 0
+.withVideoDurationRes(resInt) // set the video duration resource in video mode, default 0
 ```
 - Get Boxing, set Intent and call start
 ```java
@@ -120,6 +123,10 @@ Use camera in Android N, add this in AndroidManifest.xml
 		android:resource="@xml/boxing_file_provider"/>
 </provider>                 
 ```
+
+### Kotlin Support
+Stay hungry, stay foolish.
+checkout `feature/kotlin` for fun.
 
 ### TODO
 Support different config at the same moment.
