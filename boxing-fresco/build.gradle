@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
 group='com.bilibili'
+version = "0.8.5"
 
 android {
     compileSdkVersion 25
