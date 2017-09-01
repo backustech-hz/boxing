@@ -6,9 +6,8 @@ import com.bilibili.boxing.loader.IBoxingMediaLoader;
 import com.bilibili.boxing.loader.IBoxingViewCreator;
 
 /**
- * Created by yinhf on 2017/8/31.
+ * BoxingFresco
  */
-
 public class BoxingFresco {
 
     private static volatile boolean sIsInitialized = false;
@@ -25,7 +24,7 @@ public class BoxingFresco {
         BoxingCrop.getInstance().init(new BoxingUcrop());
     }
 
-    public static void setInitialized() {
+    public static void forceInitialized() {
         sIsInitialized = true;
     }
 }
