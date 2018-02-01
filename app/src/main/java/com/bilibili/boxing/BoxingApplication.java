@@ -19,9 +19,12 @@ package com.bilibili.boxing;
 
 import android.app.Application;
 
-import com.bilibili.boxing.impl.BoxingGlideLoader;
+import com.bilibili.boxing.impl.BoxingFrascoViewCreator;
+import com.bilibili.boxing.impl.BoxingFastFrescoLoader;
 import com.bilibili.boxing.impl.BoxingUcrop;
 import com.bilibili.boxing.loader.IBoxingMediaLoader;
+import com.bilibili.boxing.loader.IBoxingViewCreator;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
  * aha, initial work.
@@ -34,8 +37,11 @@ public class BoxingApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        IBoxingMediaLoader loader = new BoxingGlideLoader();
-        BoxingMediaLoader.getInstance().init(loader);
+        Fresco.initialize(this);
+
+        IBoxingMediaLoader loader = new BoxingFastFrescoLoader();
+        IBoxingViewCreator viewCreator = new BoxingFrascoViewCreator();
+        BoxingMediaLoader.getInstance().init(loader, viewCreator);
         BoxingCrop.getInstance().init(new BoxingUcrop());
     }
 }

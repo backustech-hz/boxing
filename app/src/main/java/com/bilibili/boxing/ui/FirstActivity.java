@@ -20,7 +20,6 @@ package com.bilibili.boxing.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bilibili.boxing.AbsBoxingActivity;
+import com.bilibili.boxing.AbsBoxingViewCreatorActivity;
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.BoxingMediaLoader;
 import com.bilibili.boxing.demo.R;
@@ -55,7 +55,7 @@ import java.util.Locale;
  *
  * @author ChenSL
  */
-public class FirstActivity extends AppCompatActivity implements View.OnClickListener {
+public class FirstActivity extends AbsBoxingViewCreatorActivity implements View.OnClickListener {
     private static final int REQUEST_CODE = 1024;
     private static final int COMPRESS_REQUEST_CODE = 2048;
 
@@ -201,7 +201,7 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             if (holder instanceof MediaViewHolder) {
                 MediaViewHolder mediaViewHolder = (MediaViewHolder) holder;
-                mediaViewHolder.mImageView.setImageResource(BoxingManager.getInstance().getBoxingConfig().getMediaPlaceHolderRes());
+                BoxingMediaLoader.getInstance().setImageResource(mediaViewHolder.mImageView, BoxingManager.getInstance().getBoxingConfig().getMediaPlaceHolderRes());
                 BaseMedia media = mList.get(position);
                 String path;
                 if (media instanceof ImageMedia) {
@@ -222,11 +222,11 @@ public class FirstActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private class MediaViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mImageView;
+        private View mImageView;
 
         MediaViewHolder(View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.media_item);
+            mImageView = itemView.findViewById(R.id.media_item);
         }
     }
 

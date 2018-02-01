@@ -45,7 +45,7 @@ import java.util.List;
  */
 public class BoxingBottomSheetActivity extends AbsBoxingActivity implements View.OnClickListener {
     private BottomSheetBehavior<FrameLayout> mBehavior;
-    private ImageView mImage;
+    private View mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class BoxingBottomSheetActivity extends AbsBoxingActivity implements View
         mBehavior = BottomSheetBehavior.from(bottomSheet);
         mBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
-        mImage = (ImageView) findViewById(R.id.media_result);
+        mImage = findViewById(R.id.media_result);
         mImage.setOnClickListener(this);
     }
 

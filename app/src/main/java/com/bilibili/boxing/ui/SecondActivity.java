@@ -22,11 +22,13 @@ import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.bilibili.boxing.AbsBoxingActivity;
+import com.bilibili.boxing.AbsBoxingViewCreatorActivity;
 import com.bilibili.boxing.AbsBoxingViewFragment;
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.BoxingMediaLoader;
@@ -46,9 +48,9 @@ import java.util.List;
  *
  * @author ChenSL
  */
-public class SecondActivity extends AppCompatActivity implements View.OnClickListener {
+public class SecondActivity extends AbsBoxingViewCreatorActivity implements View.OnClickListener {
     private FrameLayout mInsideBottomSheet;
-    private ImageView mResultImg;
+    private View mResultImg;
     private BaseMedia mMedia;
 
     @Override
@@ -57,7 +59,7 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_second);
         createToolbar();
         findViewById(R.id.inside_bs_btn).setOnClickListener(this);
-        mResultImg = (ImageView) findViewById(R.id.media_result);
+        mResultImg = findViewById(R.id.media_result);
         mResultImg.setOnClickListener(this);
         mInsideBottomSheet = (FrameLayout) findViewById(R.id.content_layout);
         BoxingBottomSheetFragment fragment = (BoxingBottomSheetFragment) getSupportFragmentManager().

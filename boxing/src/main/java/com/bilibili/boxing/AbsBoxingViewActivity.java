@@ -23,8 +23,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
+import android.view.View;
 
 import com.bilibili.boxing.loader.IBoxingCallback;
 import com.bilibili.boxing.model.BoxingManager;
@@ -43,7 +42,7 @@ import java.util.List;
  *
  * @author ChenSL
  */
-public abstract class AbsBoxingViewActivity extends AppCompatActivity implements PickerContract.View {
+public abstract class AbsBoxingViewActivity extends AbsBoxingViewCreatorActivity implements PickerContract.View {
     ArrayList<BaseMedia> mSelectedImages;
     String mAlbumId;
     int mStartPos;
@@ -117,7 +116,7 @@ public abstract class AbsBoxingViewActivity extends AppCompatActivity implements
         return getApplicationContext().getContentResolver();
     }
 
-    public final void loadRawImage(@NonNull ImageView img, @NonNull String path, int width, int height, IBoxingCallback callback) {
+    public final void loadRawImage(@NonNull View img, @NonNull String path, int width, int height, IBoxingCallback callback) {
         BoxingMediaLoader.getInstance().displayRaw(img, path, width, height, callback);
     }
 

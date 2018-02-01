@@ -70,7 +70,7 @@ public class BoxingAlbumAdapter extends RecyclerView.Adapter implements View.OnC
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final AlbumViewHolder albumViewHolder = (AlbumViewHolder) holder;
-        albumViewHolder.mCoverImg.setImageResource(mDefaultRes);
+        BoxingMediaLoader.getInstance().setImageResource(albumViewHolder.mCoverImg, mDefaultRes);
         final int adapterPos = holder.getAdapterPosition();
         final AlbumEntity album = mAlums.get(adapterPos);
 
@@ -135,7 +135,7 @@ public class BoxingAlbumAdapter extends RecyclerView.Adapter implements View.OnC
     }
 
     private static class AlbumViewHolder extends RecyclerView.ViewHolder {
-        ImageView mCoverImg;
+        View mCoverImg;
         TextView mNameTxt;
         TextView mSizeTxt;
         View mLayout;
@@ -143,7 +143,7 @@ public class BoxingAlbumAdapter extends RecyclerView.Adapter implements View.OnC
 
         AlbumViewHolder(final View itemView) {
             super(itemView);
-            mCoverImg = (ImageView) itemView.findViewById(R.id.album_thumbnail);
+            mCoverImg = itemView.findViewById(R.id.album_thumbnail);
             mNameTxt = (TextView) itemView.findViewById(R.id.album_name);
             mSizeTxt = (TextView) itemView.findViewById(R.id.album_size);
             mLayout = itemView.findViewById(R.id.album_layout);
